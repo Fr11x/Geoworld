@@ -23,6 +23,7 @@ if (isset($_GET['continent'])){
 $desPays = getCountriesByContinent($continent);
 $paysTotal = getNbTotalPays();
 
+
 ?>
 
 <main role="main" class="flex-shrink-0">
@@ -44,7 +45,7 @@ $paysTotal = getNbTotalPays();
           <?php foreach ($desPays as $paysContinent): ?>         
             <tr>
               <td> <img src= "./images/drapeau/<?php echo strtolower($paysContinent ->Code2);?>.png">
-              <td> <a href =./pays-info?pays=<?php echo  $paysContinent -> Name ?> ><?php echo $paysContinent->Name ?> </a> </td>
+              <td> <a href ="./pays-info.php?pays=<?php echo  $paysContinent -> id ?> "><?php echo $paysContinent->Name ?> </a> </td>
               <td> <?php echo $paysContinent->Population ?></td>
               <td> <?php echo $paysContinent->Region ?></td>
               <td> <?php if(!empty($paysContinent -> Capital)){echo getCapitale($paysContinent -> Capital);}else{echo "pas de capitale";}?></td>

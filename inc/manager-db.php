@@ -109,12 +109,22 @@ function getPays($continent)
     return $prep->fetchAll();
 }
 
-function paysInfo($pays){
+function paysInfo($id){
     global $pdo;
-    $query = 'SELECT * FROM Country WHERE Name = :nameCountry;';
+    $query = 'SELECT * FROM Country WHERE id = :id;';
     $prep = $pdo->prepare($query);
 
-    $prep->bindValue(':nameCountry', $pays, PDO::PARAM_STR);
+    $prep->bindValue(':id', $id, PDO::PARAM_STR);
     $prep->execute();
     return $prep->fetchAll();
+}
+function getLanguage($id){
+    global $pdo;
+    $query = 'SELECT Language.Name as Name FROM Language,Country,CountryLanguage 
+    WHERE Language.id = CountryLanguage.idLanguage AND Country.id = CountryLanguage.idCountry AND  Country.id = :id;';
+    $prep = $pdo->prepare($query);
+
+    $prep->bindValue(':id', $id, PDO::PARAM_STR);
+    $prep->execute();
+    return $prep->fetch() -> Name;
 }
