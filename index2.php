@@ -33,7 +33,7 @@ $paysTotal = getNbTotalPays();
     <div>
      <table class="table">
          <tr>
-           <th>  </th>
+           <th>Drapeau</th>
            <th>Nom</th>
           
            <th>Population</th>
@@ -44,11 +44,13 @@ $paysTotal = getNbTotalPays();
          <form id="Pays" action="./inc/manager-db.php" method="get">
           <?php foreach ($desPays as $paysContinent): ?>         
             <tr>
-              <td> <img src= "./images/drapeau/<?php echo strtolower($paysContinent ->Code2);?>.png">
-              <td> <a href ="./pays-info.php?pays=<?php echo  $paysContinent -> id ?> "><?php echo $paysContinent->Name ?> </a> </td>
+              <td> <img src= "./images/drapeau/<?php echo strtolower($paysContinent ->Code2);?>.png"> </td>
+              <td> <a href ="./pays-info.php?pays=<?php echo  $paysContinent -> id ?> ">
+              <?php echo $paysContinent->Name ?> </a> </td>
               <td> <?php echo $paysContinent->Population ?></td>
               <td> <?php echo $paysContinent->Region ?></td>
-              <td> <?php if(!empty($paysContinent -> Capital)){echo getCapitale($paysContinent -> Capital);}else{echo "pas de capitale";}?></td>
+              <td> <?php if(!empty($paysContinent -> Capital)){echo getCapitale($paysContinent -> Capital);}
+              else{echo "pas de capitale";}?></td>
               <td> <?php echo $paysContinent->HeadOfState ?></td>
             </tr>
             <?php endforeach; ?>

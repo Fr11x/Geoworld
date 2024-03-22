@@ -65,7 +65,8 @@ $continent = getContinents();?>
              <form id="Continent" action="./inc/manager-db.php" method="get">
           <div class="dropdown-menu" aria-labelledby="dropdown01">
             <?php foreach($continent as $lesContinents): ?>
-               <a class="dropdown-item" href='index2.php?continent=<?php echo  $lesContinents -> Continent ?>'><?php echo $lesContinents -> Continent ?></a>
+               <a class="dropdown-item" href='index2.php?continent=<?php echo  $lesContinents -> Continent ?>'>
+               <?php echo $lesContinents -> Continent ?></a>
             <?php endforeach; ?>
             
           </div>

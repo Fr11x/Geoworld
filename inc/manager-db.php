@@ -90,25 +90,6 @@ function getNbTotalPays(){
     return $pdo->query($query)->fetch()->  nb;
 }
 
-function getPays($continent)
-{
-    // pour utiliser la variable globale dans la fonction
-    global $pdo;
-    $query = 'SELECT * FROM Country WHERE Continent = :cont;';
-    $prep = $pdo->prepare($query);
-    // on associe ici (bind) le paramètre (:cont) de la req SQL,
-    // avec la valeur reçue en paramètre de la fonction ($continent)
-    // on prend soin de spécifier le type de la valeur (String) afin
-    // de se prémunir d'injections SQL (des filtres seront appliqués)
-    $prep->bindValue(':cont', $continent, PDO::PARAM_STR);
-    $prep->execute();
-    // var_dump($prep);  pour du debug
-    // var_dump($continent);
-
-    // on retourne un tableau d'objets (car spécifié dans connect-db.php)
-    return $prep->fetchAll();
-}
-
 function paysInfo($id){
     global $pdo;
     $query = 'SELECT * FROM Country WHERE id = :id;';
@@ -121,10 +102,16 @@ function paysInfo($id){
 function getLanguage($id){
     global $pdo;
     $query = 'SELECT Language.Name as Name FROM Language,Country,CountryLanguage 
-    WHERE Language.id = CountryLanguage.idLanguage AND Country.id = CountryLanguage.idCountry AND  Country.id = :id;';
+    WHERE Language.id = CountryLanguage.idLanguage AND Country.id = CountryLanguage.idCountry 
+    AND CountryLanguage.IsOfficial = "T" AND Country.id = :id;';
     $prep = $pdo->prepare($query);
-
-    $prep->bindValue(':id', $id, PDO::PARAM_STR);
-    $prep->execute();
-    return $prep->fetch() -> Name;
+    $prep->bindParam(':id', $id, PDO::PARAM_INT); // Bind $id to the :id parameter as an integer
+    $prep->execute(); // Execute the prepared query
+    $result = $prep->fetch(PDO::FETCH_ASSOC); // Fetch the result as an associative array
+    
+    if ($result) {
+        return $result['Name']; // Return the name of the language
+    } else {
+        return "Pas de langues officielles";
+    }
 }

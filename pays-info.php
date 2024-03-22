@@ -2,7 +2,6 @@
 <?php
 require_once 'inc/manager-db.php';
 $pays = $_GET['pays'];
-$langue =
 $info = paysInfo($pays);
 ?>
 
@@ -27,6 +26,11 @@ $info = paysInfo($pays);
             </tr>
         <?php endforeach; ?>
 </table>
+<!-- 
+<form action="update.php" method="GET">
+    <input type="hidden" name="pays" value="<?php echo $pays; ?>">
+    <input type="submit" value="Mise à jour">
+</form> -->
 
 </table>
 <?php require_once("javascripts.php") ?>
